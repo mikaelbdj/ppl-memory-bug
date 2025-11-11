@@ -21,7 +21,7 @@
  (depends
   (ocaml (>= 5.0))
   dune
-  mlgmp
+  gmp
   ppl))
 
 ; Documentation: https://dune.readthedocs.io/en/stable/reference/dune-project/index.html

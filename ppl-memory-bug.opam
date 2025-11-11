@@ -11,7 +11,7 @@ bug-reports: "https://github.com/mikaelbdj/ppl-memory-bug/issues"
 depends: [
   "ocaml" {>= "5.0"}
   "dune" {>= "3.19"}
-  "mlgmp"
+  "gmp"
   "ppl"
   "odoc" {with-doc}
 ]

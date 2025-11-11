@@ -47,11 +47,19 @@ This project uses dune and opam. These can be installed along with all other dep
 sh scripts/install-dependencies.sh
 ```
 
-Afterwards use `dune build` to build the binary. Binary will be in `_build/default/src/main.exe`.
+Proceed to run `dune build` to build the binary. The binary will be in `_build/default/src/main.exe`.
 
-The above script will also clone down PPL. You can modify PPL (to attempt bug-fixes) and then run the script 
+### Rebuilding with modified PPL
+The above script will also clone down PPL. You can modify the local PPL folder (to attempt bug-fixes) and then run the script 
 
 ```bash
 sh scripts/install-ppl.sh
 ```
-to reinstall PPL. To see the changes reflected run `dune build` after this. 
+to reinstall PPL. Make sure to run `dune build` again for the binary to use the modified version of PPL.
+
+## Running the tests
+Do
+```bash
+./_build/default/src/main.exe
+```
+to see usage options. 

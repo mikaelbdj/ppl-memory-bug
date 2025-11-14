@@ -14,7 +14,7 @@ PATCH_FOLDER="$(dirname $SCRIPT_DIR)/"
 echo "[INFO] Installing system dependencies..."
 if [[ "$(uname)" == "Linux" ]]; then
   sudo apt-get update -qq
-  sudo apt-get install -y -qq build-essential m4 g++ wget curl opam libgmp-dev libmpfr-dev libppl-dev
+  sudo apt-get install -y -qq build-essential m4 g++ wget curl opam libgmp-dev libmpfr-dev libppl-dev autoconf libtool
 elif [[ "$(uname)" == "Darwin" ]]; then
   brew install gmp ppl opam
 else
@@ -30,10 +30,12 @@ if ! opam switch list | grep -q "$SWITCH_NAME"; then
   opam switch create "$SWITCH_NAME" ocaml.$OCAML_VERSION -y
 fi
 
+echo "[INFO] Switching to $SWITCH_NAME"
+opam switch $SWITCH_NAME
 eval "$(opam env --switch=$SWITCH_NAME)"
 
-echo "[INFO] Installing dune and gmp..."
-opam install -y dune gmp
+echo "[INFO] Installing dune ..."
+opam install -y dune
 
 echo "[INFO] Installing mlgmp..."
 if [[ -f "$SCRIPT_DIR/install-mlgmp.sh" ]]; then
@@ -49,6 +51,7 @@ else
   echo "[WARN] install-ppl.sh not found — skipping."
 fi
 
-
+echo "[INFO] Cleaning old builds"
+dune clean
 
 echo "[SUCCESS] Dependencies installed."

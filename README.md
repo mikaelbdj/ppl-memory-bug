@@ -55,7 +55,11 @@ The above script will also clone down PPL. You can modify the local PPL folder (
 ```bash
 bash scripts/install-ppl.sh
 ```
-to reinstall PPL. Make sure to run `dune build` again for the binary to use the modified version of PPL.
+to reinstall PPL. Make sure to run 
+```bash
+dune build
+``` 
+again for the binary to use the modified version of PPL.
 
 ## Running the tests
 Do

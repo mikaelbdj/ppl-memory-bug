@@ -59,7 +59,9 @@ The above script will also clone down PPL. You can modify the local PPL folder (
 ```bash
 bash scripts/install-ppl.sh
 ```
-to reinstall PPL. Make sure to run 
+to reinstall PPL. 
+
+Make sure to run 
 ```bash
 dune build
 ``` 

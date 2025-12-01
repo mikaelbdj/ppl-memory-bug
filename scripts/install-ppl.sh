@@ -8,7 +8,12 @@ set -e
 REPO_URL="git@github.com:BUGSENG/PPL.git"
 REPO_DIR="PPL"
 OPAM_PREFIX=$(opam var prefix)
+OPAM_VARLIB=$(opam var lib)
 GMP_LIB=$(opam var lib)/gmp
+
+echo "[INFO] Removing old PPL installation (if it exists)"
+rm -rf $OPAM_VARLIB/ppl
+rm -rf $OPAM_PREFIX/bin/ppl*
 
 echo "[INFO] Installing PPL with OCaml interface..."
 
@@ -21,9 +26,9 @@ fi
 
 cd "$REPO_DIR"
 
-echo "[INFO] Checking out master..."
-git fetch origin master
-git checkout master
+echo "[INFO] Checking out devel..."
+git fetch origin
+git checkout devel
 
 echo "[INFO] Bootstrapping build system..."
 autoreconf -i
@@ -34,8 +39,11 @@ echo "[INFO] Configuring build..."
   --with-mlgmp="$GMP_LIB" \
   --disable-documentation \
   --enable-interfaces=ocaml \
-  --enable-shared \
-  --disable-static
+  --disable-shared \
+  --enable-static \
+  --enable-assertions \
+  --enable-debugging \
+  --disable-optimization
 
 echo "[INFO] Building PPL (including OCaml interface)..."
 make -j$(nproc 2>/dev/null || echo 4)
@@ -44,6 +52,9 @@ echo "[INFO] Installing PPL..."
 make install
 
 cd ..
+
+echo "[INFO] Moving PPL files to correct place"
+mv "$OPAM_VARLIB/"libppl* "$OPAM_VARLIB/ppl/" 
 
 META_SRC="METAS/META.ppl"
 META_DEST="$(opam var lib)/ppl/META"
